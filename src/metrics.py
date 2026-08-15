@@ -27,6 +27,14 @@ def sortino_ratio(equity: pd.Series, periods_per_year:int = 8760) -> float:
     downside_deviation = downside_returns.std()
     return float((mean_return / downside_deviation) * np.sqrt(periods_per_year))
 
+def total_return(equity: pd.Series) -> float:
+    return float(equity.iloc[-1] / equity.iloc[0] - 1)
+
+def cagr(equity: pd.Series, periods_per_year:int = 8760) -> float:
+    growth = equity.iloc[-1] / equity.iloc[0]
+    years = len(equity) / periods_per_year
+    return float((growth ** (1 / years) - 1))
+
 if __name__ == "__main__":
     sample = pd.Series([1000, 1200, 900, 1300])
     print(f"Max drawdown: {max_drawdown(sample):.2f}")
@@ -38,3 +46,11 @@ if __name__ == "__main__":
 if __name__ == "__main__":
     sample = pd.Series([1000, 1200, 900, 1300])
     print(f"Sortino ratio: {sortino_ratio(sample):.2f}")
+
+if __name__ == "__main__":
+    sample = pd.Series([1000, 1200, 900, 1300])
+    print(f"Total return: {total_return(sample):.2f}")
+
+if __name__ == "__main__":
+    sample = pd.Series([1000, 1200, 900, 1300])
+    print(f"CAGR: {cagr(sample):.2f}")
