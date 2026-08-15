@@ -21,7 +21,6 @@ def sharpe_ratio(equity: pd.Series, periods_per_year:int = 8760) -> float:
 def sortino_ratio(equity: pd.Series, periods_per_year:int = 8760) -> float:
     returns = equity.pct_change().dropna()
     mean_return = returns.mean()
-    std_return = returns.std()
     downside_returns = returns[returns < 0]
     if downside_returns.size < 2:
         return 0.0
